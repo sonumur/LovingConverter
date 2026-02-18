@@ -131,11 +131,53 @@ export const compressPDF = async (pdfFile, options = {}) => {
 export const wordToPdf = async (files) => {
     const file = files[0];
     const arrayBuffer = await file.arrayBuffer();
-    const result = await mammoth.extractRawText({ arrayBuffer });
-    const text = result.value;
+    
+    // Convert DOCX to HTML to preserve formatting
+    const result = await mammoth.convertToHtml({ arrayBuffer });
+    const html = result.value;
+    
+    // Extract text from HTML while preserving basic structure
+    const parser = new DOMParser();
     const doc = new jsPDF();
-    const splitText = doc.splitTextToSize(text, 180);
-    doc.text(splitText, 10, 10);
+    const docElement = parser.parseFromString(html, 'text/html');
+    
+    let yPosition = 15;
+    const pageHeight = doc.internal.pageSize.height;
+    const lineHeight = 5;
+    const leftMargin = 10;
+    const maxWidth = doc.internal.pageSize.width - 20;
+    
+    // Process paragraphs and preserve basic formatting
+    const paragraphs = docElement.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
+    
+    paragraphs.forEach(para => {
+        const text = para.textContent.trim();
+        if (!text) return;
+        
+        // Detect heading levels and adjust font size
+        let fontSize = 11;
+        const tagName = para.tagName.toLowerCase();
+        if (tagName === 'h1') fontSize = 16;
+        else if (tagName === 'h2') fontSize = 14;
+        else if (tagName === 'h3') fontSize = 12;
+        
+        doc.setFontSize(fontSize);
+        doc.setFont(undefined, fontSize > 11 ? 'bold' : 'normal');
+        
+        const splitText = doc.splitTextToSize(text, maxWidth);
+        splitText.forEach(line => {
+            if (yPosition + lineHeight > pageHeight - 10) {
+                doc.addPage();
+                yPosition = 15;
+            }
+            doc.text(line, leftMargin, yPosition);
+            yPosition += lineHeight;
+        });
+        
+        // Add space after paragraph
+        yPosition += 3;
+    });
+    
     return doc.output('blob');
 };
 
@@ -236,19 +278,29 @@ export const pdfToWord = async (files) => {
         const totalTextLength = textPages.reduce((s, p) => s + (p || '').trim().length, 0);
 
         if (totalTextLength > 0) {
-            // Build editable DOCX using extracted text, preserving lines and page breaks
+            // Build editable DOCX using extracted text with proper paragraph structure
             const docSectionsChildren = [];
 
             textPages.forEach((tp, pageIndex) => {
-                const lines = (tp || '').split('\n').map(l => l.trim()).filter(Boolean);
-                if (lines.length === 0) {
+                // Split into paragraphs by double newlines (better semantic structure)
+                const paragraphTexts = (tp || '').split(/\n\n+/).filter(Boolean);
+                
+                if (paragraphTexts.length === 0) {
                     // Ensure at least an empty paragraph to preserve page
-                    docSectionsChildren.push(new DocxParagraph({ children: [new DocxTextRun('')] , pageBreakBefore: pageIndex > 0 }));
+                    docSectionsChildren.push(new DocxParagraph({ 
+                        children: [new DocxTextRun('')],
+                        pageBreakBefore: pageIndex > 0 
+                    }));
                 } else {
-                    lines.forEach((line, lineIdx) => {
+                    paragraphTexts.forEach((paraText, paraIdx) => {
+                        // Split paragraph into lines and rejoin as single paragraph
+                        const lines = paraText.split('\n').map(l => l.trim()).filter(Boolean);
+                        const combinedText = lines.join(' ');
+                        
                         const para = new DocxParagraph({
-                            children: [new DocxTextRun(line)],
-                            pageBreakBefore: lineIdx === 0 && pageIndex > 0
+                            children: [new DocxTextRun(combinedText)],
+                            pageBreakBefore: paraIdx === 0 && pageIndex > 0,
+                            spacing: { line: 240, after: 200 } // Add spacing between paragraphs
                         });
                         docSectionsChildren.push(para);
                     });
