@@ -3,6 +3,10 @@ import { createBrowserRouter, RouterProvider, Routes, Route, Link, useLocation, 
 import { Heart, FileText, Split, Combine, Image as ImageIcon, Zap, Shield, HeartHandshake, FileStack, Scissors, Minimize2, FileCode, Lock, Unlock, Type, FileJson, Stamp, RotateCw, Search, Languages, Crop, ShieldAlert, ArrowLeftRight, Camera } from 'lucide-react'
 import Home from './pages/Home'
 import ConverterTool from './pages/ConverterTool'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Terms from './pages/Terms'
 import SplitOptions from './components/SplitOptions'
 import CompressOptions from './components/CompressOptions'
 import { mergePDFs, splitPDF, advancedSplitPDF, compressPDF, jpgToPdf, wordToPdf, pdfToWord, rotatePDF, watermarkPDF, addPageNumbers, repairPDF, organizePDF, protectPDF, genericMockConversion } from './utils/pdfUtils'
@@ -71,9 +75,10 @@ function Layout() {
                             <div>
                                 <h4 style={{ marginBottom: '20px' }}>Company</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', opacity: 0.7 }}>
-                                    <a href="#">About Us</a>
-                                    <a href="#">Contact</a>
-                                    <a href="#">Privacy Policy</a>
+                                    <Link to="/about">About Us</Link>
+                                    <Link to="/contact">Contact</Link>
+                                    <Link to="/privacy">Privacy Policy</Link>
+                                    <Link to="/terms">Terms of Service</Link>
                                 </div>
                             </div>
                         </div>
@@ -121,6 +126,10 @@ const router = createBrowserRouter([
             { path: 'redact-pdf', element: <ConverterTool name="Redact PDF" description="Remove sensitive info." icon={<ShieldAlert />} onProcess={(f) => f[0]} /> },
             { path: 'crop-pdf', element: <ConverterTool name="Crop PDF" description="Trim boundaries." icon={<Crop />} onProcess={(f) => f[0]} /> },
             { path: 'translate-pdf', element: <ConverterTool name="Translate PDF" description="Translate content." icon={<Languages />} onProcess={(f) => f[0]} /> },
+            { path: 'about', element: <About /> },
+            { path: 'contact', element: <Contact /> },
+            { path: 'privacy', element: <PrivacyPolicy /> },
+            { path: 'terms', element: <Terms /> },
         ]
     }
 ], { future: { v7_startTransition: true, v7_relativeSplatPath: true } });
