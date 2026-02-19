@@ -9,6 +9,7 @@ const ConverterTool = ({ name, description, icon, onProcess, accept = "applicati
     const [result, setResult] = useState(null);
     const [options, setOptions] = useState({});
     const fileInputRef = useRef(null);
+    const hasDocxSelected = files.some(f => /\.docx$/i.test(f.name));
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
@@ -39,6 +40,7 @@ const ConverterTool = ({ name, description, icon, onProcess, accept = "applicati
     };
 
     const handleProcess = async () => {
+        console.log("Handle process clicked for:", name, "Files:", files);
         if (files.length === 0) return;
         setIsProcessing(true);
         try {
@@ -105,6 +107,7 @@ const ConverterTool = ({ name, description, icon, onProcess, accept = "applicati
             </div>
 
             <div className="glass-card" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+
                 {files.length === 0 ? (
                     <div
                         onClick={() => fileInputRef.current?.click()}

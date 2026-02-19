@@ -130,55 +130,115 @@ export const compressPDF = async (pdfFile, options = {}) => {
 
 export const wordToPdf = async (files) => {
     const file = files[0];
+
+    // Try backend conversion first (recommended). If it fails, fall back to client-side method.
+    try {
+        console.log("Attempting backend conversion...");
+        const form = new FormData();
+        form.append('file', file, file.name || 'input.docx');
+        const resp = await fetch('http://localhost:3002/convert/word-to-pdf', { method: 'POST', body: form });
+        console.log("Backend response status:", resp.status);
+        if (resp.ok) {
+            const blob = await resp.blob();
+            // Retain original name but change extension to .pdf
+            const originalName = file.name || 'document';
+            const pdfName = originalName.replace(/\.[^/.]+$/, "") + ".pdf";
+            // Return blob directly - component handles naming, but just in case we wanted to attach metadata
+            return blob;
+        } else {
+            const errText = await resp.text();
+            console.warn('Backend conversion failed, falling back to client-side. Status:', resp.status, 'Error:', errText);
+        }
+    } catch (e) {
+        console.warn('Backend conversion request failed, falling back to client-side.', e);
+    }
+
+    // Dynamic import to avoid build issues if not present
+    let html2canvas;
+    try {
+        html2canvas = (await import('html2canvas')).default;
+    } catch (e) {
+        throw new Error("html2canvas dependency missing. Please install it.");
+    }
+
     const arrayBuffer = await file.arrayBuffer();
-    
+
     // Convert DOCX to HTML to preserve formatting
     const result = await mammoth.convertToHtml({ arrayBuffer });
     const html = result.value;
-    
-    // Extract text from HTML while preserving basic structure
-    const parser = new DOMParser();
-    const doc = new jsPDF();
-    const docElement = parser.parseFromString(html, 'text/html');
-    
-    let yPosition = 15;
-    const pageHeight = doc.internal.pageSize.height;
-    const lineHeight = 5;
-    const leftMargin = 10;
-    const maxWidth = doc.internal.pageSize.width - 20;
-    
-    // Process paragraphs and preserve basic formatting
-    const paragraphs = docElement.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
-    
-    paragraphs.forEach(para => {
-        const text = para.textContent.trim();
-        if (!text) return;
-        
-        // Detect heading levels and adjust font size
-        let fontSize = 11;
-        const tagName = para.tagName.toLowerCase();
-        if (tagName === 'h1') fontSize = 16;
-        else if (tagName === 'h2') fontSize = 14;
-        else if (tagName === 'h3') fontSize = 12;
-        
-        doc.setFontSize(fontSize);
-        doc.setFont(undefined, fontSize > 11 ? 'bold' : 'normal');
-        
-        const splitText = doc.splitTextToSize(text, maxWidth);
-        splitText.forEach(line => {
-            if (yPosition + lineHeight > pageHeight - 10) {
-                doc.addPage();
-                yPosition = 15;
-            }
-            doc.text(line, leftMargin, yPosition);
-            yPosition += lineHeight;
+
+    const container = document.createElement('div');
+    container.innerHTML = html;
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.width = '210mm'; // A4 width
+    container.style.padding = '20px';
+    container.style.background = 'white';
+    container.style.fontFamily = 'Arial, sans-serif';
+    container.style.fontSize = '12px';
+    container.style.lineHeight = '1.6';
+    container.style.color = '#000';
+
+    // Add some basic styling to the HTML elements
+    const style = document.createElement('style');
+    style.textContent = `
+        p { margin: 10px 0; }
+        h1 { font-size: 24px; font-weight: bold; margin: 15px 0 10px 0; }
+        h2 { font-size: 20px; font-weight: bold; margin: 12px 0 8px 0; }
+        h3 { font-size: 16px; font-weight: bold; margin: 10px 0 6px 0; }
+        strong, b { font-weight: bold; }
+        em, i { font-style: italic; }
+        ul, ol { margin: 10px 0 10px 20px; }
+        li { margin: 5px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        table, th, td { border: 1px solid #ddd; padding: 8px; }
+    `;
+    container.appendChild(style);
+    document.body.appendChild(container); // Must be in DOM for html2canvas to work
+
+    try {
+        // Render the container to canvas with high quality
+        const canvas = await html2canvas(container, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
         });
-        
-        // Add space after paragraph
-        yPosition += 3;
-    });
-    
-    return doc.output('blob');
+
+        // Get canvas dimensions
+        const imgWidth = 210; // A4 width in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        // Create PDF with proper dimensions
+        const pdf = new jsPDF({
+            orientation: imgHeight > imgWidth ? 'portrait' : 'landscape',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const pageHeight = pdf.internal.pageSize.height;
+        const pageWidth = pdf.internal.pageSize.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // Convert canvas to image
+        const imgData = canvas.toDataURL('image/png');
+
+        // Add image to PDF, handling multiple pages if content is longer than one page
+        while (heightLeft >= 0) {
+            pdf.addImage(imgData, 'PNG', 0, position, pageWidth, imgHeight);
+            heightLeft -= pageHeight;
+            if (heightLeft > 0) {
+                pdf.addPage();
+                position = heightLeft - imgHeight;
+            }
+        }
+
+        return pdf.output('blob');
+    } finally {
+        // Clean up
+        document.body.removeChild(container);
+    }
 };
 
 const fixMojibake = (str) => {
@@ -284,19 +344,19 @@ export const pdfToWord = async (files) => {
             textPages.forEach((tp, pageIndex) => {
                 // Split into paragraphs by double newlines (better semantic structure)
                 const paragraphTexts = (tp || '').split(/\n\n+/).filter(Boolean);
-                
+
                 if (paragraphTexts.length === 0) {
                     // Ensure at least an empty paragraph to preserve page
-                    docSectionsChildren.push(new DocxParagraph({ 
+                    docSectionsChildren.push(new DocxParagraph({
                         children: [new DocxTextRun('')],
-                        pageBreakBefore: pageIndex > 0 
+                        pageBreakBefore: pageIndex > 0
                     }));
                 } else {
                     paragraphTexts.forEach((paraText, paraIdx) => {
                         // Split paragraph into lines and rejoin as single paragraph
                         const lines = paraText.split('\n').map(l => l.trim()).filter(Boolean);
                         const combinedText = lines.join(' ');
-                        
+
                         const para = new DocxParagraph({
                             children: [new DocxTextRun(combinedText)],
                             pageBreakBefore: paraIdx === 0 && pageIndex > 0,

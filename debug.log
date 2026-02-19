@@ -1,0 +1,859 @@
+[2026-02-19T03:19:44.888Z] Received request: uploads\c7921323d5590106314b2da9d3b95ff0
+[2026-02-19T03:19:44.890Z] Creating job...
+[2026-02-19T03:19:45.491Z] Job created: 31c9ca40-681d-4f96-b74a-bccfb9271a74
+[2026-02-19T03:19:45.495Z] Uploading file...
+[2026-02-19T03:19:50.100Z] Upload successful
+[2026-02-19T03:19:50.351Z] Job status: error
+[2026-02-19T03:19:50.352Z] Job error: {
+  "data": {
+    "id": "31c9ca40-681d-4f96-b74a-bccfb9271a74",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:19:42+00:00",
+    "started_at": "2026-02-19T03:19:46+00:00",
+    "ended_at": "2026-02-19T03:19:46+00:00",
+    "tasks": [
+      {
+        "id": "039622f7-caa0-42bb-8808-7c270ba79d0b",
+        "name": "convert-my-file",
+        "job_id": "31c9ca40-681d-4f96-b74a-bccfb9271a74",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:19:42+00:00",
+        "started_at": "2026-02-19T03:19:46+00:00",
+        "ended_at": "2026-02-19T03:19:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "a3c741e6-b59c-4e0b-b13f-b193236e65ec"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/039622f7-caa0-42bb-8808-7c270ba79d0b"
+        }
+      },
+      {
+        "id": "79d0f912-2960-4ada-a319-6e1909900057",
+        "name": "export-my-file",
+        "job_id": "31c9ca40-681d-4f96-b74a-bccfb9271a74",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:19:42+00:00",
+        "started_at": "2026-02-19T03:19:46+00:00",
+        "ended_at": "2026-02-19T03:19:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "039622f7-caa0-42bb-8808-7c270ba79d0b"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/79d0f912-2960-4ada-a319-6e1909900057"
+        }
+      },
+      {
+        "id": "a3c741e6-b59c-4e0b-b13f-b193236e65ec",
+        "name": "import-my-file",
+        "job_id": "31c9ca40-681d-4f96-b74a-bccfb9271a74",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: c7921323d5590106314b2da9d3b95ff0",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:19:42+00:00",
+        "started_at": "2026-02-19T03:19:46+00:00",
+        "ended_at": "2026-02-19T03:19:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/a3c741e6-b59c-4e0b-b13f-b193236e65ec"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/31c9ca40-681d-4f96-b74a-bccfb9271a74"
+    }
+  }
+}
+[2026-02-19T03:19:50.382Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:21:52.797Z] Received request: uploads\23af7346c50c2350e544fac967f43818
+[2026-02-19T03:21:52.798Z] Creating job...
+[2026-02-19T03:21:53.318Z] Job created: 664f1335-74e3-4e2e-b240-386ea777a5fd
+[2026-02-19T03:21:53.320Z] Uploading file...
+[2026-02-19T03:21:58.022Z] Upload successful
+[2026-02-19T03:21:58.294Z] Job status: error
+[2026-02-19T03:21:58.295Z] Job error: {
+  "data": {
+    "id": "664f1335-74e3-4e2e-b240-386ea777a5fd",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:21:50+00:00",
+    "started_at": "2026-02-19T03:21:54+00:00",
+    "ended_at": "2026-02-19T03:21:54+00:00",
+    "tasks": [
+      {
+        "id": "ea71edc4-e428-4039-8f08-3bc9eff86304",
+        "name": "convert-my-file",
+        "job_id": "664f1335-74e3-4e2e-b240-386ea777a5fd",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:21:50+00:00",
+        "started_at": "2026-02-19T03:21:54+00:00",
+        "ended_at": "2026-02-19T03:21:54+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "2c30cc2c-ee13-4aa3-9e24-c9418fc0ab49"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/ea71edc4-e428-4039-8f08-3bc9eff86304"
+        }
+      },
+      {
+        "id": "7f595fc4-5a12-451c-9752-b6150f77e352",
+        "name": "export-my-file",
+        "job_id": "664f1335-74e3-4e2e-b240-386ea777a5fd",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:21:50+00:00",
+        "started_at": "2026-02-19T03:21:54+00:00",
+        "ended_at": "2026-02-19T03:21:54+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "ea71edc4-e428-4039-8f08-3bc9eff86304"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/7f595fc4-5a12-451c-9752-b6150f77e352"
+        }
+      },
+      {
+        "id": "2c30cc2c-ee13-4aa3-9e24-c9418fc0ab49",
+        "name": "import-my-file",
+        "job_id": "664f1335-74e3-4e2e-b240-386ea777a5fd",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: 23af7346c50c2350e544fac967f43818",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:21:50+00:00",
+        "started_at": "2026-02-19T03:21:54+00:00",
+        "ended_at": "2026-02-19T03:21:54+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/2c30cc2c-ee13-4aa3-9e24-c9418fc0ab49"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/664f1335-74e3-4e2e-b240-386ea777a5fd"
+    }
+  }
+}
+[2026-02-19T03:21:58.333Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:23:42.988Z] Received request: uploads\4b6d23c14944e300eff25ae87796eb90
+[2026-02-19T03:23:42.988Z] Creating job...
+[2026-02-19T03:23:43.488Z] Job created: 4969a3e4-15a5-4435-b41c-795259b8a790
+[2026-02-19T03:23:43.490Z] Uploading file...
+[2026-02-19T03:23:47.926Z] Upload successful
+[2026-02-19T03:23:48.186Z] Job status: error
+[2026-02-19T03:23:48.187Z] Job error: {
+  "data": {
+    "id": "4969a3e4-15a5-4435-b41c-795259b8a790",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:23:40+00:00",
+    "started_at": "2026-02-19T03:23:44+00:00",
+    "ended_at": "2026-02-19T03:23:44+00:00",
+    "tasks": [
+      {
+        "id": "ca74e375-0c06-4fb6-855c-76e41b63c522",
+        "name": "convert-my-file",
+        "job_id": "4969a3e4-15a5-4435-b41c-795259b8a790",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:23:40+00:00",
+        "started_at": "2026-02-19T03:23:44+00:00",
+        "ended_at": "2026-02-19T03:23:44+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "275a0c01-4d4c-4e7b-a1ee-f067a7446e9d"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/ca74e375-0c06-4fb6-855c-76e41b63c522"
+        }
+      },
+      {
+        "id": "fe82b7f7-135c-49c4-8ae7-7dab3358c864",
+        "name": "export-my-file",
+        "job_id": "4969a3e4-15a5-4435-b41c-795259b8a790",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:23:40+00:00",
+        "started_at": "2026-02-19T03:23:44+00:00",
+        "ended_at": "2026-02-19T03:23:44+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "ca74e375-0c06-4fb6-855c-76e41b63c522"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/fe82b7f7-135c-49c4-8ae7-7dab3358c864"
+        }
+      },
+      {
+        "id": "275a0c01-4d4c-4e7b-a1ee-f067a7446e9d",
+        "name": "import-my-file",
+        "job_id": "4969a3e4-15a5-4435-b41c-795259b8a790",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: 4b6d23c14944e300eff25ae87796eb90",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:23:40+00:00",
+        "started_at": "2026-02-19T03:23:44+00:00",
+        "ended_at": "2026-02-19T03:23:44+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/275a0c01-4d4c-4e7b-a1ee-f067a7446e9d"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/4969a3e4-15a5-4435-b41c-795259b8a790"
+    }
+  }
+}
+[2026-02-19T03:23:48.211Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:26:15.096Z] Received request: uploads\0238402dfee09e87b1ff96af9347f1c6
+[2026-02-19T03:26:15.097Z] Creating job...
+[2026-02-19T03:26:15.572Z] Job created: ee8b2648-21ef-43bd-b3a8-96aef836a423
+[2026-02-19T03:26:15.573Z] Uploading file...
+[2026-02-19T03:26:20.098Z] Upload successful
+[2026-02-19T03:26:20.345Z] Job status: error
+[2026-02-19T03:26:20.346Z] Job error: {
+  "data": {
+    "id": "ee8b2648-21ef-43bd-b3a8-96aef836a423",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:26:12+00:00",
+    "started_at": "2026-02-19T03:26:16+00:00",
+    "ended_at": "2026-02-19T03:26:16+00:00",
+    "tasks": [
+      {
+        "id": "e9e707e7-e786-40c5-b7db-64c61d774396",
+        "name": "convert-my-file",
+        "job_id": "ee8b2648-21ef-43bd-b3a8-96aef836a423",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:26:12+00:00",
+        "started_at": "2026-02-19T03:26:16+00:00",
+        "ended_at": "2026-02-19T03:26:16+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "b2e7c2be-2f8a-474b-85be-143bdbedbcd3"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/e9e707e7-e786-40c5-b7db-64c61d774396"
+        }
+      },
+      {
+        "id": "b9b77975-c460-44e3-835a-440be9a98919",
+        "name": "export-my-file",
+        "job_id": "ee8b2648-21ef-43bd-b3a8-96aef836a423",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:26:12+00:00",
+        "started_at": "2026-02-19T03:26:16+00:00",
+        "ended_at": "2026-02-19T03:26:16+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "e9e707e7-e786-40c5-b7db-64c61d774396"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/b9b77975-c460-44e3-835a-440be9a98919"
+        }
+      },
+      {
+        "id": "b2e7c2be-2f8a-474b-85be-143bdbedbcd3",
+        "name": "import-my-file",
+        "job_id": "ee8b2648-21ef-43bd-b3a8-96aef836a423",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: 0238402dfee09e87b1ff96af9347f1c6",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:26:12+00:00",
+        "started_at": "2026-02-19T03:26:16+00:00",
+        "ended_at": "2026-02-19T03:26:16+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/b2e7c2be-2f8a-474b-85be-143bdbedbcd3"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/ee8b2648-21ef-43bd-b3a8-96aef836a423"
+    }
+  }
+}
+[2026-02-19T03:26:20.380Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:28:10.215Z] Received request: uploads\ebb220fa65c94b45e3f12dcc3dbb792f
+[2026-02-19T03:28:10.215Z] Creating job...
+[2026-02-19T03:28:10.748Z] Job created: dbf07207-118c-455c-b5c0-ffc5257ed1fa
+[2026-02-19T03:28:10.750Z] Uploading file...
+[2026-02-19T03:28:15.249Z] Upload successful
+[2026-02-19T03:28:15.497Z] Job status: error
+[2026-02-19T03:28:15.497Z] Job error: {
+  "data": {
+    "id": "dbf07207-118c-455c-b5c0-ffc5257ed1fa",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:28:07+00:00",
+    "started_at": "2026-02-19T03:28:12+00:00",
+    "ended_at": "2026-02-19T03:28:12+00:00",
+    "tasks": [
+      {
+        "id": "3b52a7f7-f4a8-408c-9776-7353ccf1d5ce",
+        "name": "convert-my-file",
+        "job_id": "dbf07207-118c-455c-b5c0-ffc5257ed1fa",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:28:07+00:00",
+        "started_at": "2026-02-19T03:28:12+00:00",
+        "ended_at": "2026-02-19T03:28:12+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "f577aa14-ec18-41d1-8f54-b9802d202a23"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/3b52a7f7-f4a8-408c-9776-7353ccf1d5ce"
+        }
+      },
+      {
+        "id": "e2095d99-19b1-437b-9584-012a10d33169",
+        "name": "export-my-file",
+        "job_id": "dbf07207-118c-455c-b5c0-ffc5257ed1fa",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:28:07+00:00",
+        "started_at": "2026-02-19T03:28:12+00:00",
+        "ended_at": "2026-02-19T03:28:12+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "3b52a7f7-f4a8-408c-9776-7353ccf1d5ce"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/e2095d99-19b1-437b-9584-012a10d33169"
+        }
+      },
+      {
+        "id": "f577aa14-ec18-41d1-8f54-b9802d202a23",
+        "name": "import-my-file",
+        "job_id": "dbf07207-118c-455c-b5c0-ffc5257ed1fa",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: ebb220fa65c94b45e3f12dcc3dbb792f",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:28:07+00:00",
+        "started_at": "2026-02-19T03:28:12+00:00",
+        "ended_at": "2026-02-19T03:28:12+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/f577aa14-ec18-41d1-8f54-b9802d202a23"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/dbf07207-118c-455c-b5c0-ffc5257ed1fa"
+    }
+  }
+}
+[2026-02-19T03:28:15.549Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:33:44.164Z] Received request: uploads\f5a65e4fb8fd52fcf63668c2daa43346
+[2026-02-19T03:33:44.165Z] Creating job...
+[2026-02-19T03:33:44.685Z] Job created: eb68021b-a1f9-4b1e-855e-41cf1da12165
+[2026-02-19T03:33:44.686Z] Uploading file...
+[2026-02-19T03:33:49.377Z] Upload successful
+[2026-02-19T03:33:49.633Z] Job status: error
+[2026-02-19T03:33:49.634Z] Job error: {
+  "data": {
+    "id": "eb68021b-a1f9-4b1e-855e-41cf1da12165",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:33:41+00:00",
+    "started_at": "2026-02-19T03:33:46+00:00",
+    "ended_at": "2026-02-19T03:33:46+00:00",
+    "tasks": [
+      {
+        "id": "5548dd58-8e6e-4f56-9e41-1ebe1773f01d",
+        "name": "convert-my-file",
+        "job_id": "eb68021b-a1f9-4b1e-855e-41cf1da12165",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:33:41+00:00",
+        "started_at": "2026-02-19T03:33:46+00:00",
+        "ended_at": "2026-02-19T03:33:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "bb301b1a-6289-40d6-b4bb-4d64192ef162"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/5548dd58-8e6e-4f56-9e41-1ebe1773f01d"
+        }
+      },
+      {
+        "id": "502695e6-673b-438d-b4d5-78fd90ec769d",
+        "name": "export-my-file",
+        "job_id": "eb68021b-a1f9-4b1e-855e-41cf1da12165",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:33:41+00:00",
+        "started_at": "2026-02-19T03:33:46+00:00",
+        "ended_at": "2026-02-19T03:33:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "5548dd58-8e6e-4f56-9e41-1ebe1773f01d"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/502695e6-673b-438d-b4d5-78fd90ec769d"
+        }
+      },
+      {
+        "id": "bb301b1a-6289-40d6-b4bb-4d64192ef162",
+        "name": "import-my-file",
+        "job_id": "eb68021b-a1f9-4b1e-855e-41cf1da12165",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: f5a65e4fb8fd52fcf63668c2daa43346",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:33:41+00:00",
+        "started_at": "2026-02-19T03:33:46+00:00",
+        "ended_at": "2026-02-19T03:33:46+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/bb301b1a-6289-40d6-b4bb-4d64192ef162"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/eb68021b-a1f9-4b1e-855e-41cf1da12165"
+    }
+  }
+}
+[2026-02-19T03:33:49.666Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:50:12.970Z] Received request: uploads\1b2501703208feece444d093a049eec8
+[2026-02-19T03:50:12.977Z] Creating job...
+[2026-02-19T03:50:14.575Z] Job created: 88d07870-fb03-46d1-bc12-fd8e4020fef5
+[2026-02-19T03:50:14.577Z] Uploading file...
+[2026-02-19T03:50:43.052Z] Upload successful
+[2026-02-19T03:50:43.454Z] Job status: error
+[2026-02-19T03:50:43.455Z] Job error: {
+  "data": {
+    "id": "88d07870-fb03-46d1-bc12-fd8e4020fef5",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:50:11+00:00",
+    "started_at": "2026-02-19T03:50:39+00:00",
+    "ended_at": "2026-02-19T03:50:39+00:00",
+    "tasks": [
+      {
+        "id": "25e3393f-4ec1-4cd3-b9a3-b9fd5e1b6e11",
+        "name": "convert-my-file",
+        "job_id": "88d07870-fb03-46d1-bc12-fd8e4020fef5",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:50:11+00:00",
+        "started_at": "2026-02-19T03:50:39+00:00",
+        "ended_at": "2026-02-19T03:50:39+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "4c01dc6a-a678-4bfc-ac00-f64d1c52c260"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/25e3393f-4ec1-4cd3-b9a3-b9fd5e1b6e11"
+        }
+      },
+      {
+        "id": "1297424e-9973-44cb-acee-1857ca4ed812",
+        "name": "export-my-file",
+        "job_id": "88d07870-fb03-46d1-bc12-fd8e4020fef5",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:50:11+00:00",
+        "started_at": "2026-02-19T03:50:39+00:00",
+        "ended_at": "2026-02-19T03:50:39+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "25e3393f-4ec1-4cd3-b9a3-b9fd5e1b6e11"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/1297424e-9973-44cb-acee-1857ca4ed812"
+        }
+      },
+      {
+        "id": "4c01dc6a-a678-4bfc-ac00-f64d1c52c260",
+        "name": "import-my-file",
+        "job_id": "88d07870-fb03-46d1-bc12-fd8e4020fef5",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: 1b2501703208feece444d093a049eec8",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:50:11+00:00",
+        "started_at": "2026-02-19T03:50:39+00:00",
+        "ended_at": "2026-02-19T03:50:39+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/4c01dc6a-a678-4bfc-ac00-f64d1c52c260"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/88d07870-fb03-46d1-bc12-fd8e4020fef5"
+    }
+  }
+}
+[2026-02-19T03:50:43.506Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T03:53:59.422Z] Received request: uploads\f3dbffe643a8604de13df6e3607cf6ca
+[2026-02-19T03:53:59.424Z] Creating job...
+[2026-02-19T03:54:00.467Z] Job created: db1020cc-be8d-4ffd-a38a-a2be864cae14
+[2026-02-19T03:54:00.468Z] Uploading file...
+[2026-02-19T03:54:06.100Z] Upload successful
+[2026-02-19T03:54:06.925Z] Job status: error
+[2026-02-19T03:54:06.926Z] Job error: {
+  "data": {
+    "id": "db1020cc-be8d-4ffd-a38a-a2be864cae14",
+    "tag": null,
+    "status": "error",
+    "created_at": "2026-02-19T03:53:57+00:00",
+    "started_at": "2026-02-19T03:54:02+00:00",
+    "ended_at": "2026-02-19T03:54:02+00:00",
+    "tasks": [
+      {
+        "id": "8ae564e4-e476-496f-945a-ff210c9de3cf",
+        "name": "convert-my-file",
+        "job_id": "db1020cc-be8d-4ffd-a38a-a2be864cae14",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "convert",
+        "engine": null,
+        "engine_version": null,
+        "result": null,
+        "created_at": "2026-02-19T03:53:57+00:00",
+        "started_at": "2026-02-19T03:54:02+00:00",
+        "ended_at": "2026-02-19T03:54:02+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "b4f89d12-7474-4470-b773-07dfbe0645d7"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/8ae564e4-e476-496f-945a-ff210c9de3cf"
+        }
+      },
+      {
+        "id": "5ad24c9d-7a31-4d32-b837-b89e9d4ff892",
+        "name": "export-my-file",
+        "job_id": "db1020cc-be8d-4ffd-a38a-a2be864cae14",
+        "status": "error",
+        "credits": 0,
+        "code": "INPUT_TASK_FAILED",
+        "message": "Input task has failed",
+        "percent": 100,
+        "operation": "export/url",
+        "result": null,
+        "created_at": "2026-02-19T03:53:57+00:00",
+        "started_at": "2026-02-19T03:54:02+00:00",
+        "ended_at": "2026-02-19T03:54:02+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": null,
+        "region": "eu-central",
+        "depends_on_task_ids": [
+          "8ae564e4-e476-496f-945a-ff210c9de3cf"
+        ],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/5ad24c9d-7a31-4d32-b837-b89e9d4ff892"
+        }
+      },
+      {
+        "id": "b4f89d12-7474-4470-b773-07dfbe0645d7",
+        "name": "import-my-file",
+        "job_id": "db1020cc-be8d-4ffd-a38a-a2be864cae14",
+        "status": "error",
+        "credits": 0,
+        "code": "INVALID_FILENAME",
+        "message": "Invalid filename: f3dbffe643a8604de13df6e3607cf6ca",
+        "percent": 100,
+        "operation": "import/upload",
+        "result": null,
+        "created_at": "2026-02-19T03:53:57+00:00",
+        "started_at": "2026-02-19T03:54:02+00:00",
+        "ended_at": "2026-02-19T03:54:02+00:00",
+        "retry_of_task_id": null,
+        "copy_of_task_id": null,
+        "user_id": 74363908,
+        "priority": -10,
+        "host_name": null,
+        "storage": "ceph-fra",
+        "region": "eu-central",
+        "depends_on_task_ids": [],
+        "links": {
+          "self": "https://api.cloudconvert.com/v2/tasks/b4f89d12-7474-4470-b773-07dfbe0645d7"
+        }
+      }
+    ],
+    "links": {
+      "self": "https://api.cloudconvert.com/v2/jobs/db1020cc-be8d-4ffd-a38a-a2be864cae14"
+    }
+  }
+}
+[2026-02-19T03:54:07.041Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T04:02:39.859Z] Server Started v5 - Ready for requests
+[2026-02-19T04:04:03.014Z] Received request v5: uploads\79141163e7e820555ba2bb293f1884b3
+[2026-02-19T04:04:03.016Z] Creating job...
+[2026-02-19T04:04:04.064Z] Job created: d52a5b9c-088f-4663-be35-b9b6320b8324
+[2026-02-19T04:04:04.070Z] Original filename: ai.docx
+[2026-02-19T04:04:04.078Z] Uploading file...
+[2026-02-19T04:04:08.432Z] Upload successful
+[2026-02-19T04:04:08.711Z] Job status: processing
+[2026-02-19T04:04:11.038Z] Job status: finished
+[2026-02-19T04:04:11.040Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/41c48997-626f-4e81-9302-ab2c257b060b/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T040407Z&X-Amz-Expires=86400&X-Amz-Signature=ffbe56f307c95222108820f267b54da2b50a6e792b84c0d8d46d317adbb00b3e&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
+[2026-02-19T04:04:11.521Z] Sent response
