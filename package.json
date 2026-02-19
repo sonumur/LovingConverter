@@ -20,6 +20,8 @@
     "framer-motion": "^11.13.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "jsdoc": "^4.0.2",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.468.0",
     "mammoth": "^1.11.0",
     "multer": "^2.0.2",

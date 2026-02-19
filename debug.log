@@ -878,3 +878,53 @@
 [2026-02-19T06:07:08.811Z] Job status: finished
 [2026-02-19T06:07:08.812Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/44b65847-ead7-477a-b6fb-59ffdcde04c4/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T060704Z&X-Amz-Expires=86400&X-Amz-Signature=d8969c564ca651b07d4745ca010633d9d8b65ccccb7a72504ad392573d6cee66&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
 [2026-02-19T06:07:09.247Z] Sent response
+[2026-02-19T09:38:45.685Z] Server Started v5 - Ready for requests
+[2026-02-19T09:39:43.251Z] Received PDF to Word request: uploads\135a3dcc5c4eb59498403a266807f0f3
+[2026-02-19T09:39:43.252Z] Creating job...
+[2026-02-19T09:39:44.029Z] Job created: 5288d634-a09b-4b5f-86c2-ddc149a0d109
+[2026-02-19T09:39:44.034Z] Uploading file...
+[2026-02-19T09:39:51.408Z] Upload successful
+[2026-02-19T09:39:51.824Z] Job status: error
+[2026-02-19T09:39:51.825Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T09:40:31.909Z] Received PDF to Word request: uploads\8fb72f25e0d7ca1a942369b4c9ee8e7f
+[2026-02-19T09:40:31.910Z] Creating job...
+[2026-02-19T09:40:32.415Z] Job created: 162f9c41-04d4-49ca-bc03-0adbdf41b1a4
+[2026-02-19T09:40:32.418Z] Uploading file...
+[2026-02-19T09:40:41.119Z] Upload successful
+[2026-02-19T09:40:41.570Z] Job status: error
+[2026-02-19T09:40:41.571Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T09:45:49.115Z] Server Started v5 - Ready for requests
+[2026-02-19T09:47:00.946Z] Received PDF to Word request: uploads\5286ea9eddcaaa0641855b87289259f5
+[2026-02-19T09:47:00.948Z] Creating job...
+[2026-02-19T09:47:01.520Z] Job created: bbb5cfdf-4559-4ec0-b62c-30e40eef0a8c
+[2026-02-19T09:47:01.522Z] Uploading file...
+[2026-02-19T09:47:11.398Z] Upload successful
+[2026-02-19T09:47:11.879Z] Job status: error
+[2026-02-19T09:47:11.880Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T09:49:34.762Z] Server Started v5 - Ready for requests
+[2026-02-19T09:50:10.712Z] Received PDF to Word request: uploads\4dd3ecf673293cedd89a5a258ae0d41b
+[2026-02-19T09:50:10.713Z] Creating job...
+[2026-02-19T09:50:11.273Z] Job created: 0b34cee7-f58a-4aad-91e5-8026b42e97c9
+[2026-02-19T09:50:11.275Z] Uploading file...
+[2026-02-19T09:50:21.837Z] Upload successful
+[2026-02-19T09:50:22.317Z] Job status: error
+[2026-02-19T09:50:22.318Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T10:01:21.748Z] Server Started v5 - Ready for requests
+[2026-02-19T10:04:49.053Z] Server Started v5 - Ready for requests
+[2026-02-19T10:06:08.223Z] Received PDF to Word request: uploads\6469570b89a22179ab2b5d85c57ec93d
+[2026-02-19T10:06:08.225Z] Creating job...
+[2026-02-19T10:06:08.719Z] Job created: c9a0c5e0-d710-426c-8d3c-0aeeebd56497
+[2026-02-19T10:06:08.722Z] Uploading file...
+[2026-02-19T10:06:15.002Z] Upload successful
+[2026-02-19T10:06:15.375Z] Job status: error
+[2026-02-19T10:06:15.375Z] Conversion proxy error: Job failed: Unknown error
+[2026-02-19T10:08:05.313Z] Server Started v5 - Ready for requests
+[2026-02-19T10:09:41.844Z] Received PDF to Word request: uploads\f8244922ce373b860b44621ea5631d25
+[2026-02-19T10:09:41.845Z] [P2W] Creating job...
+[2026-02-19T10:09:42.506Z] [P2W] Job created: 33b8ed37-77ce-42de-a9f9-fc2b7d0f48d4
+[2026-02-19T10:09:42.510Z] [P2W] Uploading file...
+[2026-02-19T10:09:48.291Z] [P2W] Upload successful
+[2026-02-19T10:09:48.716Z] [P2W] Job status: processing
+[2026-02-19T10:09:51.017Z] [P2W] Job status: finished
+[2026-02-19T10:09:51.018Z] [P2W] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/22ebbb82-65fd-4d7a-ab1e-a97d1edc02a9/ai.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T100947Z&X-Amz-Expires=86400&X-Amz-Signature=a4f0d2dc63d2c9c7477e5349ccfb17bc751c474b487371ca6a76a7acebf9a429&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.docx%22&response-content-type=application%2Fvnd.openxmlformats-officedocument.wordprocessingml.document&x-id=GetObject
+[2026-02-19T10:09:51.475Z] [P2W] Sent response

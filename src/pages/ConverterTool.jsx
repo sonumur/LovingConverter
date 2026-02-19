@@ -48,7 +48,7 @@ const ConverterTool = ({ name, description, icon, onProcess, accept = "applicati
             setResult(output);
         } catch (error) {
             console.error("Processing failed:", error);
-            alert("Something went wrong during processing. Please try again.");
+            alert(`Something went wrong: ${error.message || 'Unknown error'}`);
         } finally {
             setIsProcessing(false);
         }

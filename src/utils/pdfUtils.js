@@ -98,8 +98,11 @@ export const jpgToPdf = async (images) => {
         if (i > 0) doc.addPage();
         const imgProps = doc.getImageProperties(imageData);
         const pdfWidth = doc.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        doc.addImage(imageData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        const pdfHeight = doc.internal.pageSize.getHeight();
+        const ratio = Math.min(pdfWidth / imgProps.width, pdfHeight / imgProps.height);
+        const w = imgProps.width * ratio;
+        const h = imgProps.height * ratio;
+        doc.addImage(imageData, 'JPEG', (pdfWidth - w) / 2, (pdfHeight - h) / 2, w, h);
     }
     return doc.output('blob');
 };
@@ -284,50 +287,114 @@ const hexEncode = (buffer) => {
 };
 
 export const pdfToWord = async (files) => {
-    const JSZip = (await import('jszip')).default;
+    console.log("pdfToWord start. Files:", files.map(f => f.name));
+    let JSZip;
+    try {
+        const module = await import('jszip');
+        JSZip = module.default || module;
+        console.log("JSZip loaded successfully");
+    } catch (e) {
+        console.error("JSZip failed to load:", e);
+        throw new Error("Library loading failed (jszip). Please refresh the page or restart the server.");
+    }
 
     const file = files[0];
     const arrayBuffer = await file.arrayBuffer();
+
+    // Try backend API first for better quality/alignment
+    try {
+        console.log("Attempting API conversion for better layout preservation...");
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+
+        const response = await fetch('http://localhost:3002/convert/pdf-to-word', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            console.log("API conversion successful!");
+            return await response.blob();
+        } else {
+            const rawText = await response.text();
+            let errorMessage = rawText || "Unknown server error";
+            try {
+                const errData = JSON.parse(rawText);
+                errorMessage = errData.message || errData.error || errorMessage;
+                if (errData.debugId) errorMessage += ` (Debug ID: ${errData.debugId})`;
+            } catch (jsonErr) {
+                // Not JSON, keep raw text as errorMessage
+            }
+            console.warn("API conversion failed, falling back to client-side:", errorMessage);
+        }
+    } catch (e) {
+        console.warn("API unreachable, falling back to client-side conversion.", e);
+    }
+
     const uint8Array = new Uint8Array(arrayBuffer);
 
     try {
-        const loadingTask = pdfjsLib.getDocument({
-            data: uint8Array,
-            useWorkerFetch: true,
-            isEvalSupported: true
-        });
-        const pdf = await loadingTask.promise;
+        let pdf;
+        try {
+            console.log("Loading PDF document...");
+            const loadingTask = pdfjsLib.getDocument({
+                data: uint8Array,
+                useWorkerFetch: true,
+                isEvalSupported: true
+            });
+            pdf = await loadingTask.promise;
+        } catch (pdfJsErr) {
+            console.warn("Initial PDF.js load failed, attempting self-repair:", pdfJsErr);
+            try {
+                // Attempt repair with pdf-lib
+                // Sometimes just loading and saving is enough, but copying to a new doc is even safer
+                const srcDoc = await PDFDocument.load(uint8Array, { ignoreEncryption: true });
+                const repairedDoc = await PDFDocument.create();
+                const pages = await repairedDoc.copyPages(srcDoc, srcDoc.getPageIndices());
+                pages.forEach(p => repairedDoc.addPage(p));
 
-        // First try to extract selectable text from the PDF pages to build an editable DOCX.
+                const repairedBytes = await repairedDoc.save();
+                console.log("Self-repair (reconstruction) successful, retrying PDF.js load...");
+
+                const retryTask = pdfjsLib.getDocument({
+                    data: repairedBytes,
+                    useWorkerFetch: true,
+                    isEvalSupported: true
+                });
+                pdf = await retryTask.promise;
+            } catch (repairErr) {
+                console.error("Self-repair failed:", repairErr);
+                // Be flexible with the error message check
+                const isInvalidStructure = pdfJsErr.message && pdfJsErr.message.toLowerCase().includes('invalid pdf structure');
+                if (isInvalidStructure) {
+                    throw new Error("The PDF has an invalid structure that could not be automatically repaired. It might be severely corrupted.");
+                }
+                throw pdfJsErr;
+            }
+        }
+
         const textPages = [];
-        // Improved text extraction: group items by rounded Y coordinate to reconstruct lines
         for (let i = 1; i <= pdf.numPages; i++) {
             try {
                 const page = await pdf.getPage(i);
                 const textContent = await page.getTextContent();
-
                 const linesMap = new Map();
                 for (const item of textContent.items) {
                     const str = item.str || '';
                     const transform = item.transform || item.transformMatrix || [];
-                    // PDF.js transform: [a, b, c, d, e, f] where f is y
                     const y = transform[5] || 0;
                     const key = Math.round(y);
                     if (!linesMap.has(key)) linesMap.set(key, []);
                     linesMap.get(key).push({ x: transform[4] || 0, str });
                 }
-
-                // Sort lines by descending Y (top to bottom)
                 const sortedYs = Array.from(linesMap.keys()).sort((a, b) => b - a);
                 const lines = sortedYs.map(y => {
                     const items = linesMap.get(y);
-                    // sort items by x position
                     items.sort((a, b) => a.x - b.x);
                     return items.map(it => it.str).join(' ').trim();
                 }).filter(Boolean);
-
-                // Join lines into paragraph text with double newlines separating larger gaps
                 const pageText = lines.join('\n');
+                console.log(`Page ${i} extracted ${lines.length} lines`);
                 textPages.push(cleanText(pageText));
             } catch (e) {
                 console.error(`Page ${i} text extraction failed:`, e);
@@ -336,51 +403,38 @@ export const pdfToWord = async (files) => {
         }
 
         const totalTextLength = textPages.reduce((s, p) => s + (p || '').trim().length, 0);
+        console.log("Total extracted text length:", totalTextLength);
 
-        if (totalTextLength > 0) {
-            // Build editable DOCX using extracted text with proper paragraph structure
+        if (totalTextLength > 50) {
+            console.log("Using editable DOCX generation path...");
             const docSectionsChildren = [];
-
             textPages.forEach((tp, pageIndex) => {
-                // Split into paragraphs by double newlines (better semantic structure)
                 const paragraphTexts = (tp || '').split(/\n\n+/).filter(Boolean);
-
                 if (paragraphTexts.length === 0) {
-                    // Ensure at least an empty paragraph to preserve page
                     docSectionsChildren.push(new DocxParagraph({
                         children: [new DocxTextRun('')],
                         pageBreakBefore: pageIndex > 0
                     }));
                 } else {
                     paragraphTexts.forEach((paraText, paraIdx) => {
-                        // Split paragraph into lines and rejoin as single paragraph
                         const lines = paraText.split('\n').map(l => l.trim()).filter(Boolean);
                         const combinedText = lines.join(' ');
-
-                        const para = new DocxParagraph({
+                        docSectionsChildren.push(new DocxParagraph({
                             children: [new DocxTextRun(combinedText)],
                             pageBreakBefore: paraIdx === 0 && pageIndex > 0,
-                            spacing: { line: 240, after: 200 } // Add spacing between paragraphs
-                        });
-                        docSectionsChildren.push(para);
+                            spacing: { line: 240, after: 200 }
+                        }));
                     });
                 }
             });
 
             const doc = new DocxDocument({
-                sections: [
-                    {
-                        properties: {},
-                        children: docSectionsChildren
-                    }
-                ]
+                sections: [{ properties: {}, children: docSectionsChildren }]
             });
-
-            const docxBlob = await DocxPacker.toBlob(doc);
-            return docxBlob;
+            return await DocxPacker.toBlob(doc);
         }
 
-        // If there is no selectable text, fall back to rendering pages as images
+        console.log("Falling back to image-based DOCX generation...");
         const pages = [];
         for (let i = 1; i <= pdf.numPages; i++) {
             try {
@@ -391,9 +445,8 @@ export const pdfToWord = async (files) => {
                 canvas.height = viewport.height;
                 await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
                 const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-                const base64 = dataUrl.split(',')[1];
                 pages.push({
-                    base64,
+                    base64: dataUrl.split(',')[1],
                     width: viewport.width,
                     height: viewport.height,
                     aspectRatio: viewport.height / viewport.width,
@@ -405,11 +458,7 @@ export const pdfToWord = async (files) => {
 
         if (pages.length === 0) throw new Error('No pages rendered');
 
-        // EMU constants: 1 inch = 914400 EMU, A4 width = 7772400 EMU (8.5in)
-        const PAGE_WIDTH_EMU = 7772400;  // 8.5 inches
-        const MARGIN_EMU = 0;
-
-        // Build document.xml body with one image per page
+        const PAGE_WIDTH_EMU = 7772400;
         let bodyXml = '';
         const imageRels = [];
 
@@ -417,13 +466,8 @@ export const pdfToWord = async (files) => {
             const rId = `rId${idx + 1}`;
             const imgName = `image${idx + 1}.jpg`;
             imageRels.push({ rId, imgName, base64: pg.base64 });
-
             const imgWidthEmu = PAGE_WIDTH_EMU;
             const imgHeightEmu = Math.round(PAGE_WIDTH_EMU * pg.aspectRatio);
-
-            // Page break before each page (except first)
-            const pageBreakAttr = idx === 0 ? '' : '<w:br w:type="page"/>';
-
             bodyXml += `
   <w:p>
     ${idx > 0 ? '<w:r><w:br w:type="page"/></w:r>' : ''}
@@ -490,16 +534,12 @@ ${bodyXml}
   </w:body>
 </w:document>`;
 
-        // Build relationships for images
         let relsXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">`;
         imageRels.forEach(({ rId, imgName }) => {
-            // Relationship targets in word/_rels/document.xml.rels should point to the media folder
-            // relative to the /word directory: "media/<imgName>"
-            relsXml += `
-  <Relationship Id="${rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/${imgName}"/>`;
+            relsXml += `<Relationship Id="${rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/${imgName}"/>`;
         });
-        relsXml += `\n</Relationships>`;
+        relsXml += `</Relationships>`;
 
         const contentTypesXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
@@ -514,24 +554,20 @@ ${bodyXml}
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
 </Relationships>`;
 
-        // Build ZIP
         const zip = new JSZip();
         zip.file('[Content_Types].xml', contentTypesXml);
         zip.file('_rels/.rels', appRelsXml);
         zip.file('word/document.xml', documentXml);
         zip.file('word/_rels/document.xml.rels', relsXml);
-
-        // Add images
         imageRels.forEach(({ imgName, base64 }) => {
             zip.file(`word/media/${imgName}`, base64, { base64: true });
         });
 
-        const zipBlob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-        return zipBlob;
+        return await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
 
     } catch (error) {
         console.error('DOCX conversion failed:', error);
-        return new Blob([`Error: ${error.message}`], { type: 'text/plain' });
+        throw error;
     }
 };
 
@@ -623,9 +659,39 @@ export const protectPDF = async (pdfFile) => {
     return new Blob([pdfBytes], { type: 'application/pdf' });
 };
 
-// Generic mock for complex conversions
+// Generic mock for complex conversions - generates an informational PDF
 export const genericMockConversion = async (files, targetType) => {
     const file = files[0];
-    const text = `Converted ${file.name} to ${targetType}.\n\nThis is a professional conversion simulation.`;
-    return new Blob([text], { type: 'application/octet-stream' });
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.text("Loving Converter", 105, 40, { align: "center" });
+
+    doc.setFontSize(16);
+    doc.setTextColor(100);
+    doc.text(`${targetType} Capability`, 105, 60, { align: "center" });
+
+    doc.setDrawColor(77, 107, 254);
+    doc.setLineWidth(1);
+    doc.line(40, 70, 170, 70);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text(`We've simulated the conversion of:`, 105, 90, { align: "center" });
+    doc.setFont("helvetica", "bold");
+    doc.text(file.name, 105, 100, { align: "center" });
+
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(11);
+    doc.setTextColor(150);
+    doc.text("This feature is currently in high-fidelity development.", 105, 130, { align: "center" });
+    doc.text("Professional-grade algorithms are being finalized.", 105, 140, { align: "center" });
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(77, 107, 254);
+    doc.text("Coming Soon to Loving Converter!", 105, 170, { align: "center" });
+
+    return doc.output('blob');
 };
