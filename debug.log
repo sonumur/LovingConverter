@@ -868,3 +868,13 @@
 [2026-02-19T05:59:16.641Z] Job status: finished
 [2026-02-19T05:59:16.642Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/61c156af-87bb-473c-89c9-50e2d8eb1e8a/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T055913Z&X-Amz-Expires=86400&X-Amz-Signature=0fa129414794507fa012eb1e8970d9f8e2bb670e92138952a798470b97fbcddb&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
 [2026-02-19T05:59:17.115Z] Sent response
+[2026-02-19T06:07:01.215Z] Received request v5: uploads\422cf4228e0b413d9c2a0d491350bb3f
+[2026-02-19T06:07:01.217Z] Creating job...
+[2026-02-19T06:07:01.680Z] Job created: 502911f3-9cf5-4b3f-b371-9dac96bfd336
+[2026-02-19T06:07:01.681Z] Original filename: ai.docx
+[2026-02-19T06:07:01.682Z] Uploading file...
+[2026-02-19T06:07:06.246Z] Upload successful
+[2026-02-19T06:07:06.552Z] Job status: processing
+[2026-02-19T06:07:08.811Z] Job status: finished
+[2026-02-19T06:07:08.812Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/44b65847-ead7-477a-b6fb-59ffdcde04c4/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T060704Z&X-Amz-Expires=86400&X-Amz-Signature=d8969c564ca651b07d4745ca010633d9d8b65ccccb7a72504ad392573d6cee66&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
+[2026-02-19T06:07:09.247Z] Sent response
