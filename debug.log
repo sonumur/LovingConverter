@@ -857,3 +857,14 @@
 [2026-02-19T04:04:11.038Z] Job status: finished
 [2026-02-19T04:04:11.040Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/41c48997-626f-4e81-9302-ab2c257b060b/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T040407Z&X-Amz-Expires=86400&X-Amz-Signature=ffbe56f307c95222108820f267b54da2b50a6e792b84c0d8d46d317adbb00b3e&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
 [2026-02-19T04:04:11.521Z] Sent response
+[2026-02-19T05:57:10.785Z] Server Started v5 - Ready for requests
+[2026-02-19T05:59:08.688Z] Received request v5: uploads\0e82399752eae0512a1c4880283f38c3
+[2026-02-19T05:59:08.688Z] Creating job...
+[2026-02-19T05:59:09.297Z] Job created: 6597d8c6-ddc7-4415-82dc-3cecb2c538a9
+[2026-02-19T05:59:09.300Z] Original filename: ai.docx
+[2026-02-19T05:59:09.301Z] Uploading file...
+[2026-02-19T05:59:14.122Z] Upload successful
+[2026-02-19T05:59:14.382Z] Job status: processing
+[2026-02-19T05:59:16.641Z] Job status: finished
+[2026-02-19T05:59:16.642Z] Downloading result: https://eu-central.storage.cloudconvert.com/tasks/61c156af-87bb-473c-89c9-50e2d8eb1e8a/ai.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20260219%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20260219T055913Z&X-Amz-Expires=86400&X-Amz-Signature=0fa129414794507fa012eb1e8970d9f8e2bb670e92138952a798470b97fbcddb&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22ai.pdf%22&response-content-type=application%2Fpdf&x-id=GetObject
+[2026-02-19T05:59:17.115Z] Sent response
